@@ -76,6 +76,6 @@ const LandingPage = () => {
       {/* Keep all other code as-is */}
     </div>
   );
-};
+};  
 
 export default LandingPage;
