@@ -160,7 +160,7 @@ export default function Order() {
                   </div>
                 </div>
 
-                {/* User Info Section */}
+                {/* User Info Section /*/}
                 <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 rounded-2xl shadow-xl p-6">
                   <h2 className="text-2xl font-semibold mb-6">User Information</h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
