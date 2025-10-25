@@ -1,90 +1,113 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import logo from '../../image/logo.png';
-import homeIcon from '../../image/home.png'; // Replace with your home icon
-import carsIcon from '../../image/cars.png'; // Replace with your cars icon
-import ordersIcon from '../../image/orders.png'; // Replace with your orders icon
-import contactsIcon from '../../image/contacts.png'; // Replace with your contacts icon
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import logo from "../../image/logo.png";
+import homeIcon from "../../image/home.png";
+import carsIcon from "../../image/cars.png";
+import ordersIcon from "../../image/orders.png";
+import contactsIcon from "../../image/contacts.png";
+import Modal from "./Modal";
+import Sidebar from "./Sidebar";
 
 export default function Navbar() {
   const location = useLocation();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <nav className="bg-black/10 dark:bg-black/75 bg-glass-gradient border-b border-white/20 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-12 sm:h-16">
-          <Link to="/" className="flex items-center p-1">
-            <img
-              src={logo}
-              alt="FCars Logo"
-              className="h-20 sm:h-17 w-auto object-contain"
-              loading="lazy"
-            />
+    <>
+      <nav
+        className={`
+          fixed
+          w-full
+          ${window.innerWidth >= 768 ? "top-0" : "bottom-0"}
+          bg-[#1A2E44]  /* ✅ solid background to remove glass effect */
+          border-t md:border-t-0 md:border-b border-gray-700
+          text-white
+          z-40  /* ✅ lower z-index to allow page behind to show */
+        `}
+      >
+        <div className="flex justify-between items-center max-w-7xl mx-auto px-4 h-14 md:h-16">
+          {/* Logo */}
+          <Link to="/" className="flex items-center">
+            <img src={logo} alt="FCars Logo" className="h-10 w-auto" />
           </Link>
-          {/* Mobile Icon Navigation */}
-          <div className="md:hidden flex justify-center items-center space-x-3">
-            <Link to="/" className={`p-1 rounded-apple transition-all duration-200 ${location.pathname === '/' ? 'bg-apple-gray-100' : ''}`}>
+
+          {/* Desktop Links */}
+          <div className="hidden md:flex space-x-6 text-sm font-medium">
+            {["/", "/cars", "/order", "/contacts"].map((path, i) => (
+              <Link
+                key={path}
+                to={path}
+                className={`hover:text-white transition ${
+                  location.pathname === path ? "text-white" : "text-gray-300"
+                }`}
+              >
+                {["Home", "Cars", "Orders", "Contact"][i]}
+              </Link>
+            ))}
+          </div>
+
+          {/* Buttons */}
+          <div className="flex gap-3">
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="px-3 py-1 bg-gray-800 rounded-lg text-white text-xs hover:bg-gray-700 transition"
+            >
+              Add Car
+            </button>
+            <button
+              onClick={() => setIsSidebarOpen(true)}
+              className="px-3 py-1 bg-gray-800 rounded-lg text-white text-xs hover:bg-gray-700 transition"
+            >
+              Company Stats
+            </button>
+          </div>
+
+          {/* Mobile Icons */}
+          <div className="flex md:hidden items-center space-x-4">
+            <Link to="/">
               <img
                 src={homeIcon}
-                alt="Home Icon"
-                className="h-5 w-5 object-contain"
-                loading="lazy"
+                alt="Home"
+                className={`h-5 w-5 ${
+                  location.pathname === "/" ? "opacity-100" : "opacity-60"
+                }`}
               />
             </Link>
-            <Link to="/cars" className={`p-1 rounded-apple transition-all duration-200 ${location.pathname === '/cars' ? 'bg-apple-gray-100' : ''}`}>
+            <Link to="/cars">
               <img
                 src={carsIcon}
-                alt="Cars Icon"
-                className="h-5 w-5 object-contain"
-                loading="lazy"
+                alt="Cars"
+                className={`h-5 w-5 ${
+                  location.pathname === "/cars" ? "opacity-100" : "opacity-60"
+                }`}
               />
             </Link>
-            <Link to="/order" className={`p-1 rounded-apple transition-all duration-200 ${location.pathname === '/order' ? 'bg-apple-gray-100' : ''}`}>
+            <Link to="/order">
               <img
                 src={ordersIcon}
-                alt="Orders Icon"
-                className="h-5 w-5 object-contain"
-                loading="lazy"
+                alt="Orders"
+                className={`h-5 w-5 ${
+                  location.pathname === "/order" ? "opacity-100" : "opacity-60"
+                }`}
               />
             </Link>
-            <Link to="/contacts" className={`p-1 rounded-apple transition-all duration-200 ${location.pathname === '/contacts' ? 'bg-apple-gray-100' : ''}`}>
+            <Link to="/contacts">
               <img
                 src={contactsIcon}
-                alt="Contacts Icon"
-                className="h-5 w-5 object-contain"
-                loading="lazy"
+                alt="Contacts"
+                className={`h-5 w-5 ${
+                  location.pathname === "/contacts" ? "opacity-100" : "opacity-60"
+                }`}
               />
-            </Link>
-          </div>
-          {/* Web Text Navigation */}
-          <div className="hidden md:flex space-x-4 sm:space-x-8">
-            <Link
-              to="/"
-              className={`px-2 sm:px-3 py-1 sm:py-2 rounded-apple text-body font-medium transition-all duration-200 text-sm sm:text-base ${location.pathname === '/' ? 'text-apple-blue bg-apple-gray-100' : 'text-apple-gray-700 hover:text-apple-blue'}`}
-            >
-              Home
-            </Link>
-            <Link
-              to="/cars"
-              className={`px-2 sm:px-3 py-1 sm:py-2 rounded-apple text-body font-medium transition-all duration-200 text-sm sm:text-base ${location.pathname === '/cars' ? 'text-apple-blue bg-apple-gray-100' : 'text-apple-gray-700 hover:text-apple-blue'}`}
-            >
-              Cars
-            </Link>
-            <Link
-              to="/order"
-              className={`px-2 sm:px-3 py-1 sm:py-2 rounded-apple text-body font-medium transition-all duration-200 text-sm sm:text-base ${location.pathname === '/order' ? 'text-apple-blue bg-apple-gray-100' : 'text-apple-gray-700 hover:text-apple-blue'}`}
-            >
-              Order
-            </Link>
-            <Link
-              to="/contacts"
-              className={`px-2 sm:px-3 py-1 sm:py-2 rounded-apple text-body font-medium transition-all duration-200 text-sm sm:text-base ${location.pathname === '/contacts' ? 'text-apple-blue bg-apple-gray-100' : 'text-apple-gray-700 hover:text-apple-blue'}`}
-            >
-              Contact
             </Link>
           </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+
+      {/* Independent Modal & Sidebar */}
+      <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <Sidebar open={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+    </>
   );
 }

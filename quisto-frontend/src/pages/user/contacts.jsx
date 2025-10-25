@@ -26,7 +26,7 @@ const Contacts = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-silver relative">
+    <div className="min-h-screen bg-gradient-to-b from-black via-gray-800 to-white text-silver relative">
       <Navbar />
 
       {/* Header */}
@@ -68,7 +68,7 @@ const Contacts = () => {
         ].map((item, index) => (
           <div
             key={index}
-            className="bg-gradient-to-b from-gray-900 to-black border border-silver/30 rounded-2xl p-6 text-center hover:scale-105 transition-all duration-300 shadow-[0_0_15px_rgba(192,192,192,0.2)]"
+            className="bg-gradient-to-b from-gray-200 via-gray-400 to-gray-900 border border-silver/30 rounded-2xl p-6 text-center hover:scale-105 transition-all duration-300 shadow-[0_0_15px_rgba(192,192,192,0.2)]"
           >
             <img src={item.icon} alt={item.title} className="w-10 h-10 mx-auto mb-3" />
             <h3 className="text-lg font-semibold text-white mb-2">{item.title}</h3>
@@ -89,9 +89,7 @@ const Contacts = () => {
       </section>
 
       {/* Contact Form */}
-      <section className="py-16 px-6 md:px-20">
-        
-      </section>
+      <section className="py-16 px-6 md:px-20"></section>
 
       {/* Footer */}
       <footer className="py-10 text-center border-t border-silver/20 mt-8">
